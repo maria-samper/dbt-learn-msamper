@@ -10,6 +10,9 @@ with customers as (
 orders as (
     select * from {{ ref('stg_orders') }}
 ),
+total_orders as (
+    select * from {{ ref('total_orders') }}
+),
 customer_orders as (
     select
         customer_id,
@@ -19,7 +22,7 @@ customer_orders as (
     from orders
     group by 1
 ),
-final as (
+number_of_orders as (
     select
         customers.customer_id,
         customers.first_name,
@@ -29,5 +32,16 @@ final as (
         coalesce(customer_orders.number_of_orders, 0) as number_of_orders
     from customers
     left join customer_orders using (customer_id)
+),
+final as (
+    select  number_of_orders.customer_id,
+            number_of_orders.first_name,
+            number_of_orders.last_name,
+            number_of_orders.first_order_date,
+            number_of_orders.most_recent_order_date,
+            number_of_orders.number_of_orders,
+            total_orders.lifetime_value
+    from number_of_orders
+    inner join total_orders using (customer_id)
 )
 select * from final
