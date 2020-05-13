@@ -1,0 +1,26 @@
+# This example defines a source called `source_1` containing one table
+# called `table_1`. This is a minimal example of a source definition.
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: raw
+
+    freshness:
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
+      
+    tables:
+      - name: customers
+        columns: 
+          - name: id
+            tests:
+              - unique
+      - name: orders
+
+  - name: stripe
+    database: raw
+    tables:
+      - name: payment
+
+      
