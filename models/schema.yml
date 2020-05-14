@@ -19,7 +19,7 @@ models:
           - unique
           - not_null
   - name: stg_orders
-    description: This model cleans up order data
+    description:  '{{ doc("table_orders") }}'
     columns:
       - name: order_id
         description: Primary key

@@ -11,7 +11,7 @@ orders as (
     select * from {{ ref('stg_orders') }}
 ),
 total_orders as (
-    select * from {{ ref('total_orders') }}
+    select * from {{ ref('orders') }}
 ),
 customer_orders as (
     select
