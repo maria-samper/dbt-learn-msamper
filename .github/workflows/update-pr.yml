@@ -10,7 +10,7 @@ jobs:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         base-branch-regex: '^Release.+'
         head-branch-regex: 'master'
-        title-template: '[%headbranch%] '
+        title-template: '[%basebranch%] '
         body-template: |
           Add here release note from JIRA
         body-update-action: 'replace'
